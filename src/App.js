@@ -13,7 +13,7 @@ function App() {
     const stripe = await stripePromise;
 
     // Call your backend to create the Checkout Session
-    const response = await fetch('http://localhost:4242/create-checkout-session', { method: 'POST' });
+    const response = await fetch('http://localhost:4242/purchase-cell/42/37/127,34,21/jou', { method: 'POST' });
 
     const session = await response.json();
 
