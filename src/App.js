@@ -12,8 +12,35 @@ function App() {
     // Get Stripe.js instance
     const stripe = await stripePromise;
 
+    const requestOptions = { 
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        [
+          {
+            x: 42,
+            y: 36,
+            color: '#123456',
+            owner: 'joe doe',
+            note: 'this is a note',
+            amount: 2.34,
+          },
+          {
+            x: 12,
+            y: 96,
+            color: '#654321',
+            owner: 'joe doe',
+            note: 'this is a second note',
+            amount: 1.34,
+          },
+        ]
+      )
+    };
+
+    console.log(requestOptions);
+
     // Call your backend to create the Checkout Session
-    const response = await fetch('http://localhost:4242/purchase-cell/42/37/127,34,21/jou', { method: 'POST' });
+    const response = await fetch('http://localhost:4242/claim-pixel', requestOptions);
 
     const session = await response.json();
 
