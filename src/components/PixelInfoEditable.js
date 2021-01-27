@@ -28,6 +28,7 @@ const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
                         value={ pixel.owner }
                         onChange={ (event) => setPixel({ ...pixel, owner: event.target.value }) }
                         />
+                    <br />
                 </label>
                 <label>
                     Color:
@@ -41,6 +42,7 @@ const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
                         value={ pixel.color }
                         onChange={ (event) => setPixel({ ...pixel, color: event.target.value }) }
                         />
+                    <br />
                 </label>
                 <label>
                     Note:
@@ -49,17 +51,23 @@ const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
                         value={ pixel.note }
                         onChange={ (event) => setPixel({ ...pixel, note: event.target.value }) }
                         />
+                    <br />
                 </label>
                 <label>
                     Claim amount:
                     <input 
                         type="text"
                         value={ pixel.amount }
+                        style={{ 
+                            width: '3em',
+                            textAlign: 'right',
+                            }}
                         onChange={ (event) => setPixel({ ...pixel, amount: event.target.value }) }
-                        />
+                        /> €
+                    <br />
                 </label>
 
-                <button onClick={ () => claimPixelsFunction([ pixel ]) }>Claim for { pixel.amount }</button> 
+                <button onClick={ () => claimPixelsFunction([ pixel ]) }>Claim for { pixel.amount } €</button> 
                 
             </div>
         )

@@ -101,7 +101,13 @@ function App() {
   } else {
 
     return (
-      <div className="content">
+      <div 
+        className="content"
+        style={{ 
+          display: "flex",
+          flexFlow: "row wrap",
+        }}
+        >
         <SizeAdjuster
           pixelSize={ pixelSize }
           setPixelSize={ setPixelSize }
@@ -111,6 +117,7 @@ function App() {
           fullPixelData={pixels} 
           setActivePixelFunction={ setActivePixel } 
           pixelSize={ pixelSize }
+          style={{ border: '1px solid black' }}
           />
 
         <PixelInfoEditable 
