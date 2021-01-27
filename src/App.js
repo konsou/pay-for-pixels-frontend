@@ -14,6 +14,8 @@ import { loadStripe } from '@stripe/stripe-js';
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_RMqvxnEUv0TbhaRCpLNpNzeF00G9e3C2JE');
 
+const BACKEND_URL = 'http://pixels.rpghelpers.com:4242'
+
 
 /*
 const emptyPixel = {
@@ -53,7 +55,7 @@ function App() {
   useEffect(() => {
     console.log('running effect')
     axios
-      .get('http://localhost:4242/pixels')
+      .get(`${BACKEND_URL}/pixels`)
       .then(response => {
         console.log('effect response', response.data)
         setFetchedPixels(response.data)                
@@ -79,7 +81,7 @@ function App() {
     // console.log(requestOptions);
 
     // Call your backend to create the Checkout Session
-    const response = await fetch('http://localhost:4242/claim-pixels', requestOptions);
+    const response = await fetch(`${BACKEND_URL}/claim-pixels`, requestOptions);
 
     const session = await response.json();
 
