@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 
 import PixelGrid from './components/PixelGrid'
 import PixelInfo from './components/PixelInfo'
+import SizeAdjuster from './components/SizeAdjuster'
 
 
 import { loadStripe } from '@stripe/stripe-js';
@@ -91,6 +92,11 @@ function App() {
 
   return (
     <div className="content">
+      <SizeAdjuster
+        pixelSize={ pixelSize }
+        setPixelSize={ setPixelSize }
+        />
+        
       <PixelGrid 
         fullPixelData={pixels} 
         setActivePixelFunction={ setActivePixel } 
