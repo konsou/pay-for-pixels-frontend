@@ -1,6 +1,9 @@
 import './App.css';
 
+import React, { useState } from 'react'
+
 import PixelGrid from './components/PixelGrid'
+import PixelInfo from './components/PixelInfo'
 
 
 import { loadStripe } from '@stripe/stripe-js';
@@ -33,8 +36,11 @@ for (let row = 0; row < 100; row++) {
 }
 
 
-
 function App() {
+  const [ activePixel, setActivePixel ] = useState(null)
+
+  console.log(typeof(setActivePixel))
+
   const handleClick = async (event) => {
     // Get Stripe.js instance
     const stripe = await stripePromise;
@@ -86,7 +92,9 @@ function App() {
 
   return (
     <div className="content">
-      <PixelGrid fullPixelData={pixels} />
+      <PixelGrid fullPixelData={pixels} setActivePixelFunction={ setActivePixel } />
+
+      <PixelInfo pixelData={ activePixel } />
 
       <button type="button" role="link" onClick={handleClick}>
         Checkout
