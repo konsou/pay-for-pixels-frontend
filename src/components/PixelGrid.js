@@ -5,7 +5,10 @@ const PixelGrid = ({ fullPixelData, setActivePixelFunction, pixelSize }) => {
     console.log('in PixelGrid')
     // console.log(`type of setActivePixelFunction: ${typeof(setActivePixelFunction)}`)
     return (
-        <table className="pixelGrid">
+        <table 
+            className="pixelGrid"
+            style={{ borderCollapse: 'collapse' }}
+            >
             <tbody>
                 { fullPixelData.map(row => <PixelRow 
                                             key={ row[0].y } 
