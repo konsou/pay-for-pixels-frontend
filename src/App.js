@@ -56,7 +56,7 @@ function App() {
     // console.log(requestOptions);
 
     // Call your backend to create the Checkout Session
-    const response = await fetch('http://localhost:4242/claim-pixel', requestOptions);
+    const response = await fetch('http://localhost:4242/claim-pixels', requestOptions);
 
     const session = await response.json();
 
