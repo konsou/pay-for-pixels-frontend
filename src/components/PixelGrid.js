@@ -1,9 +1,9 @@
 import React from 'react'
 import PixelRow from './PixelRow'
 
-const PixelGrid = ({ fullPixelData, setActivePixelFunction }) => {
+const PixelGrid = ({ fullPixelData, setActivePixelFunction, pixelSize }) => {
     console.log('in PixelGrid')
-    console.log(`type of setActivePixelFunction: ${typeof(setActivePixelFunction)}`)
+    // console.log(`type of setActivePixelFunction: ${typeof(setActivePixelFunction)}`)
     return (
         <table className="pixelGrid">
             <tbody>
@@ -11,6 +11,7 @@ const PixelGrid = ({ fullPixelData, setActivePixelFunction }) => {
                                             key={ row[0].y } 
                                             pixelRowData={ row }
                                             setActivePixelFunction={ setActivePixelFunction } 
+                                            pixelSize={ pixelSize }
                                             /> 
                 ) }
             </tbody>

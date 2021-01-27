@@ -1,10 +1,14 @@
 import React from 'react'
 
-const Pixel = ({ pixelData, setActivePixelFunction }) => {
+const Pixel = ({ pixelData, setActivePixelFunction, pixelSize}) => {
     return (
         <td 
             className="pixel" 
-            style={{ backgroundColor: pixelData.color }}
+            style={{ 
+                backgroundColor: pixelData.color,
+                width: pixelSize,
+                height: pixelSize
+                }}
             onClick={ () => setActivePixelFunction(pixelData) }
             >
     

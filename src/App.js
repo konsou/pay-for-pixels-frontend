@@ -38,8 +38,7 @@ for (let row = 0; row < 100; row++) {
 
 function App() {
   const [ activePixel, setActivePixel ] = useState(null)
-
-  console.log(typeof(setActivePixel))
+  const [ pixelSize, setPixelSize ] = useState(5)
 
   const handleClick = async (event) => {
     // Get Stripe.js instance
@@ -70,7 +69,7 @@ function App() {
       )
     };
 
-    console.log(requestOptions);
+    // console.log(requestOptions);
 
     // Call your backend to create the Checkout Session
     const response = await fetch('http://localhost:4242/claim-pixel', requestOptions);
@@ -92,7 +91,11 @@ function App() {
 
   return (
     <div className="content">
-      <PixelGrid fullPixelData={pixels} setActivePixelFunction={ setActivePixel } />
+      <PixelGrid 
+        fullPixelData={pixels} 
+        setActivePixelFunction={ setActivePixel } 
+        pixelSize={ pixelSize }
+        />
 
       <PixelInfo pixelData={ activePixel } />
 
