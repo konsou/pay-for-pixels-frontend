@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 
 import PixelGrid from './components/PixelGrid'
 import PixelInfo from './components/PixelInfo'
+import PixelInfoEditable from './components/PixelInfoEditable'
 import SizeAdjuster from './components/SizeAdjuster'
 
 
@@ -40,35 +41,17 @@ for (let row = 0; row < 100; row++) {
 function App() {
   const [ activePixel, setActivePixel ] = useState(null)
   const [ pixelSize, setPixelSize ] = useState(5)
+  const [ quickCheckout, setQuickCheckout ] = useState(null) // if this contains pixel data then quick checkout is active
 
-  const handleClick = async (event) => {
+  const claimPixelsFunction = async (pixels) => {
     // Get Stripe.js instance
     const stripe = await stripePromise;
 
     const requestOptions = { 
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(
-        [
-          {
-            x: 42,
-            y: 36,
-            color: '#123456',
-            owner: 'joe doe',
-            note: 'this is a note',
-            amount: 2.34,
-          },
-          {
-            x: 12,
-            y: 96,
-            color: '#654321',
-            owner: 'joe doe',
-            note: 'this is a second note',
-            amount: 1.34,
-          },
-        ]
-      )
-    };
+      body: JSON.stringify(pixels)
+    }
 
     // console.log(requestOptions);
 
@@ -88,7 +71,7 @@ function App() {
       // using `result.error.message`.
       console.log(result.error.message);
     }
-  };
+  }
 
   return (
     <div className="content">
@@ -96,18 +79,18 @@ function App() {
         pixelSize={ pixelSize }
         setPixelSize={ setPixelSize }
         />
-        
+
       <PixelGrid 
         fullPixelData={pixels} 
         setActivePixelFunction={ setActivePixel } 
         pixelSize={ pixelSize }
         />
 
-      <PixelInfo pixelData={ activePixel } />
+      <PixelInfoEditable 
+        pixelData={ activePixel } 
+        claimPixelsFunction={ claimPixelsFunction }
+        />
 
-      <button type="button" role="link" onClick={handleClick}>
-        Checkout
-      </button>
     </div>
   );
 }
