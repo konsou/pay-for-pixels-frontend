@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { TwitterPicker, SketchPicker } from 'react-color'
 
 
 const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
     const [ pixel, setPixel ] = useState(null)
+    const [ advancedColorPickerActive, setAdvancedColorPickerActive ] = useState(false)
 
     console.log('in PixelInfoEditable')
     console.log('pixelData:', pixelData)
@@ -19,7 +21,13 @@ const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
 
     if (pixel && pixel !== null) {
         return (
-            <div className="pixelInfo" style={{ border: '1px solid black' }}>
+            <div 
+                className="pixelInfo" 
+                style={{ 
+                    border: '1px solid black',
+                    width: '276px',
+                    }}
+                >
                 <h1>Pixel { pixel.x },{ pixel.y }</h1>
                 <label>
                     Claimed by:
@@ -34,14 +42,37 @@ const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
                     Color:
                     <div style={{ 
                         backgroundColor: pixel.color,
-                        width: '20px',
-                        height: '20px',
+                        width: '100%',
+                        height: '50px',
                         }} />
+                    { advancedColorPickerActive
+                        ? <SketchPicker
+                            color={pixel.color}
+                            width='250px'
+                            onChangeComplete={ (color, event) => setPixel({ ...pixel, color: color.hex })}
+                            />
+                        : <TwitterPicker 
+                            color={pixel.color} 
+                            onChange={ (color, event) => setPixel({ ...pixel, color: color.hex })}
+                            />
+                    }
+                    <button 
+                        style={{ width: '100%' }}
+                        onClick={ () => setAdvancedColorPickerActive(!advancedColorPickerActive)}
+                        >
+                        { advancedColorPickerActive
+                            ? "Basic..."
+                            : "Advanced..."
+                        }
+                        </button>
+                    {/*
                     <input 
                         type="text"
                         value={ pixel.color }
                         onChange={ (event) => setPixel({ ...pixel, color: event.target.value }) }
                         />
+                    */}
+                        
                     <br />
                 </label>
                 <label>

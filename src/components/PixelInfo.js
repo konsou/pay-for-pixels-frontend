@@ -5,7 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_RMqvxnEUv0TbhaRCpLNpNzeF00G9e3C2JE');
 
-
+/*
 const claimPixels = async (pixels) => {
     // Get Stripe.js instance
     const stripe = await stripePromise;
@@ -35,7 +35,7 @@ const claimPixels = async (pixels) => {
       console.log(result.error.message);
     }
 }
-
+*/
 const PixelInfo = ({ pixelData }) => {
     if (pixelData && pixelData !== null) {
         return (
@@ -49,7 +49,9 @@ const PixelInfo = ({ pixelData }) => {
                     }} />
                 <p>{ pixelData.note }</p>
                 <p>Claim amount: { pixelData.amount }</p>
-                <button onClick={ () => claimPixels([ { ...pixelData, amount: pixelData.amount + 0.05 } ]) }>Claim for { pixelData.amount + 0.05 }</button>
+                {
+                    // <button onClick={ () => claimPixels([ { ...pixelData, amount: pixelData.amount + 0.05 } ]) }>Claim for { pixelData.amount + 0.05 }</button>
+                }
             </div>
         )
     } else {
