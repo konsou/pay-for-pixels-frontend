@@ -1,0 +1,12 @@
+.shoppingCart {
+    border: 1px solid black;
+    width: 276px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.shoppingCartItem {
+    width: 100%;
+    border: 1px dashed black;
+
+}

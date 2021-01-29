@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { TwitterPicker, SketchPicker } from 'react-color'
 
-import cart from '../utils/shoppingCart'
+import localStorageCart from '../utils/shoppingCart'
 
 
-const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
+const PixelInfoEditable = ({ 
+    pixelData, 
+    claimPixelsFunction,
+    addToCartFunction
+ }) => {
     const [ pixel, setPixel ] = useState(null)
     const [ advancedColorPickerActive, setAdvancedColorPickerActive ] = useState(false)
 
@@ -101,7 +105,7 @@ const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
                 </label>
 
                 <button onClick={ () => claimPixelsFunction([ pixel ]) }>Claim for { pixel.amount } €</button> 
-                <button onClick={ () => cart.add(pixel) }>Add to Cart</button> 
+                <button onClick={ () => addToCartFunction(pixel) }>Add to Cart</button> 
                 
             </div>
         )

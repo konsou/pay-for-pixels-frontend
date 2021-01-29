@@ -15,5 +15,5 @@ const get = () => {
 }
 
 
-const cart =  { add, get }
-export default cart
+const localStorageCart =  { add, get }
+export default localStorageCart

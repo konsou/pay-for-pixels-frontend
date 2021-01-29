@@ -8,6 +8,9 @@ import PixelGrid from './components/PixelGrid'
 import PixelInfo from './components/PixelInfo'
 import PixelInfoEditable from './components/PixelInfoEditable'
 import SizeAdjuster from './components/SizeAdjuster'
+import ShoppingCart from './components/ShoppingCart'
+
+import localStorageCart from './utils/shoppingCart'
 
 
 import { loadStripe } from '@stripe/stripe-js';
@@ -48,17 +51,19 @@ function App() {
   const [ activePixel, setActivePixel ] = useState(null)
   const [ pixelSize, setPixelSize ] = useState(5)
   const [ quickCheckout, setQuickCheckout ] = useState(null) // if this contains pixel data then quick checkout is active
+  const [ cartContents, setCartContents ] = useState([]) // 
 
   console.log('render')
-  console.log('pixels', pixels)
-  console.log('fetchedPixels', fetchedPixels)
+  // console.log('pixels', pixels)
+  // console.log('fetchedPixels', fetchedPixels)
 
   useEffect(() => {
     console.log('running effect')
+    // Load pixel data from backend
     axios
       .get(`${BACKEND_URL}/pixels`)
       .then(response => {
-        console.log('effect response', response.data)
+        //console.log('effect response', response.data)
         setFetchedPixels(response.data)                
       })
       .catch(error => {
@@ -68,6 +73,11 @@ function App() {
   )
 
   if (pixels.length === 0 && fetchedPixels !== null) { pixels = fetchedPixels }
+
+  const addToCart = ( item ) => {
+    setCartContents( cartContents.concat([ item ]) )
+    localStorageCart.add(item)
+  }
 
   const claimPixelsFunction = async (pixels) => {
     // Get Stripe.js instance
@@ -116,11 +126,12 @@ function App() {
           text="Use card number 4242 4242 4242 4242 for purchases"
           />
 
+        { /*
         <SizeAdjuster
           pixelSize={ pixelSize }
           setPixelSize={ setPixelSize }
           />
-
+        */ }
         <PixelGrid 
           fullPixelData={pixels} 
           setActivePixelFunction={ setActivePixel } 
@@ -128,11 +139,17 @@ function App() {
           style={{ border: '1px solid black' }}
           />
 
+        <div>
         <PixelInfoEditable 
           pixelData={ activePixel } 
           claimPixelsFunction={ claimPixelsFunction }
+          addToCartFunction={ addToCart }
           />
 
+        <ShoppingCart
+          contents={ cartContents }
+          />
+        </div>
       </div>
     )
   }
