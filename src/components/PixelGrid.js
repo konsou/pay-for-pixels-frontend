@@ -7,7 +7,10 @@ const PixelGrid = ({ fullPixelData, setActivePixelFunction, pixelSize }) => {
     return (
         <table 
             className="pixelGrid"
-            style={{ borderCollapse: 'collapse' }}
+            style={{ 
+                borderCollapse: 'collapse',
+                border: '1px solid black',
+            }}
             >
             <tbody>
                 { fullPixelData.map(row => <PixelRow 
