@@ -3,6 +3,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import Header from './components/Header'
 import PixelGrid from './components/PixelGrid'
 import PixelInfo from './components/PixelInfo'
 import PixelInfoEditable from './components/PixelInfoEditable'
@@ -110,6 +111,11 @@ function App() {
           flexFlow: "row wrap",
         }}
         >
+        <Header
+          header="TESTING MODE"
+          text="Use card number 4242 4242 4242 4242 for purchases"
+          />
+
         <SizeAdjuster
           pixelSize={ pixelSize }
           setPixelSize={ setPixelSize }
