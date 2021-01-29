@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { TwitterPicker, SketchPicker } from 'react-color'
 
+import cart from '../utils/shoppingCart'
+
 
 const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
     const [ pixel, setPixel ] = useState(null)
@@ -99,6 +101,7 @@ const PixelInfoEditable = ({ pixelData, claimPixelsFunction }) => {
                 </label>
 
                 <button onClick={ () => claimPixelsFunction([ pixel ]) }>Claim for { pixel.amount } €</button> 
+                <button onClick={ () => cart.add(pixel) }>Add to Cart</button> 
                 
             </div>
         )
