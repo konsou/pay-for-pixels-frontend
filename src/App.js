@@ -148,6 +148,7 @@ function App() {
 
         <ShoppingCart
           contents={ cartContents }
+          checkoutFunction={ claimPixelsFunction }
           />
         </div>
       </div>

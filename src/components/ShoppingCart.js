@@ -2,7 +2,7 @@ import React from 'react'
 
 import './ShoppingCart.css'
 
-const ShoppingCart = ({ contents }) => {
+const ShoppingCart = ({ contents, checkoutFunction }) => {
     console.log('shopping cart - contents', contents)
     return (
         <div 
@@ -23,6 +23,7 @@ const ShoppingCart = ({ contents }) => {
                     </div>
                 )
             })}
+            <button onClick={ () => checkoutFunction(contents)}>Checkout</button>
         </div>
     )
 }
