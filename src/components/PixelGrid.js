@@ -3,7 +3,12 @@ import PixelRow from './PixelRow'
 
 import './PixelGrid.css'
 
-const PixelGrid = ({ fullPixelData, setActivePixelFunction, pixelSize }) => {
+const PixelGrid = ({ 
+    fullPixelData, 
+    activePixel,
+    setActivePixelFunction, 
+    pixelSize 
+}) => {
     console.log('in PixelGrid')
     // console.log(`type of setActivePixelFunction: ${typeof(setActivePixelFunction)}`)
     return (
@@ -14,6 +19,7 @@ const PixelGrid = ({ fullPixelData, setActivePixelFunction, pixelSize }) => {
                 { fullPixelData.map(row => <PixelRow 
                                             key={ row[0].y } 
                                             pixelRowData={ row }
+                                            activePixel={ activePixel }
                                             setActivePixelFunction={ setActivePixelFunction } 
                                             pixelSize={ pixelSize }
                                             /> 

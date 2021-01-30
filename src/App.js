@@ -79,6 +79,11 @@ function App() {
     localStorageCart.add(item)
   }
 
+  const emptyCart = () => {
+    setCartContents([])
+    localStorageCart.empty()
+  }
+
   const claimPixelsFunction = async (pixels) => {
     // Get Stripe.js instance
     const stripe = await stripePromise;
@@ -90,6 +95,8 @@ function App() {
     }
 
     // console.log(requestOptions);
+    // TODO: EMPTY CART ONLY WHEN RETURNING FROM SUCCESFUL CHECKOUT
+    emptyCart()
 
     // Call your backend to create the Checkout Session
     const response = await fetch(`${BACKEND_URL}/claim-pixels`, requestOptions);
@@ -134,6 +141,7 @@ function App() {
         */ }
         <PixelGrid 
           fullPixelData={pixels} 
+          activePixel={activePixel}
           setActivePixelFunction={ setActivePixel } 
           pixelSize={ pixelSize }
           style={{ border: '1px solid black' }}

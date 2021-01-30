@@ -14,6 +14,10 @@ const get = () => {
     return JSON.parse(localStorage.getItem('cart'))
 }
 
+const empty = () => {
+    localStorage.removeItem('cart')
+}
 
-const localStorageCart =  { add, get }
+
+const localStorageCart =  { add, get, empty }
 export default localStorageCart
