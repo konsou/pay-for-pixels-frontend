@@ -1,16 +1,14 @@
 import React from 'react'
 import PixelRow from './PixelRow'
 
+import './PixelGrid.css'
+
 const PixelGrid = ({ fullPixelData, setActivePixelFunction, pixelSize }) => {
     console.log('in PixelGrid')
     // console.log(`type of setActivePixelFunction: ${typeof(setActivePixelFunction)}`)
     return (
         <table 
             className="pixelGrid"
-            style={{ 
-                borderCollapse: 'collapse',
-                border: '1px solid black',
-            }}
             >
             <tbody>
                 { fullPixelData.map(row => <PixelRow 
