@@ -1,0 +1,26 @@
+#shoppingCartIndicator {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#shoppingCartIndicatorImage {
+    width: 30px;
+    height: 30px;
+}
+
+#shoppingCartIndicatorCount {
+    text-align: center;
+    background-color: red;
+    color: black;
+    font-weight: bold;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+
+}
