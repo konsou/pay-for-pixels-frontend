@@ -126,6 +126,7 @@ function App() {
         style={{ 
           display: "flex",
           flexFlow: "row wrap",
+          justifyContent: "center",
         }}
         >
         <Header
