@@ -9,6 +9,7 @@ import PixelInfo from './components/PixelInfo'
 import PixelInfoEditable from './components/PixelInfoEditable'
 import SizeAdjuster from './components/SizeAdjuster'
 import ShoppingCart from './components/ShoppingCart'
+import Footer from './components/Footer'
 
 import localStorageCart from './utils/shoppingCart'
 
@@ -160,6 +161,7 @@ function App() {
           checkoutFunction={ claimPixelsFunction }
           />
         </div>
+        <Footer />
       </div>
     )
   }
