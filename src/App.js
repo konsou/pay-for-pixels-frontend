@@ -53,7 +53,7 @@ function App() {
   const [ activePixel, setActivePixel ] = useState(null)
   const [ pixelSize, setPixelSize ] = useState(5)
   const [ quickCheckout, setQuickCheckout ] = useState(null) // if this contains pixel data then quick checkout is active
-  const [ cartContents, setCartContents ] = useState(new Set()) // 
+  const [ cartContents, setCartContents ] = useState(new Set(localStorageCart.get())) // 
 
   console.log('render')
   // console.log('pixels', pixels)
