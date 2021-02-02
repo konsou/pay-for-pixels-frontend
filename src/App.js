@@ -53,7 +53,7 @@ function App() {
   const [ activePixel, setActivePixel ] = useState(null)
   const [ pixelSize, setPixelSize ] = useState(5)
   const [ quickCheckout, setQuickCheckout ] = useState(null) // if this contains pixel data then quick checkout is active
-  const [ cartContents, setCartContents ] = useState([]) // 
+  const [ cartContents, setCartContents ] = useState(new Set()) // 
 
   console.log('render')
   // console.log('pixels', pixels)
@@ -77,12 +77,14 @@ function App() {
   if (pixels.length === 0 && fetchedPixels !== null) { pixels = fetchedPixels }
 
   const addToCart = ( item ) => {
-    setCartContents( cartContents.concat([ item ]) )
+    const newCart = new Set(cartContents)
+    newCart.add(item)
+    setCartContents(newCart)
     localStorageCart.add(item)
   }
 
   const emptyCart = () => {
-    setCartContents([])
+    setCartContents(new Set())
     localStorageCart.empty()
   }
 
@@ -158,7 +160,8 @@ function App() {
           />
 
         <ShoppingCart
-          contents={ cartContents }
+          /* convert Set to array for component */
+          contents={ [...cartContents] } 
           checkoutFunction={ claimPixelsFunction }
           />
         </div>
