@@ -59,6 +59,22 @@ function App() {
   // console.log('pixels', pixels)
   // console.log('fetchedPixels', fetchedPixels)
 
+  const useEventSource = (url) => {
+    const [eventData, updateEventData] = useState(null);
+
+    useEffect(() => {
+        const source = new EventSource(url);
+
+        source.onmessage = function logEvents(event) {      
+            updateEventData(JSON.parse(event.data));     
+        }
+    }, [])
+
+    return eventData;
+  }
+
+  const eventData = useEventSource(`${BACKEND_URL}/events`);
+
   useEffect(() => {
     console.log('running effect')
     // Load pixel data from backend
@@ -137,6 +153,9 @@ function App() {
           header="TESTING MODE"
           text="Use card number 4242 4242 4242 4242 for purchases"
           />
+        { eventData 
+          ? <div>{ eventData }</div>
+          : <div />}
 
         { /*
         <SizeAdjuster
