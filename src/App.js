@@ -5,9 +5,9 @@ import axios from 'axios'
 
 import Header from './components/Header'
 import PixelGrid from './components/PixelGrid'
-import PixelInfo from './components/PixelInfo'
+// import PixelInfo from './components/PixelInfo'
 import PixelInfoEditable from './components/PixelInfoEditable'
-import SizeAdjuster from './components/SizeAdjuster'
+// import SizeAdjuster from './components/SizeAdjuster'
 import ShoppingCart from './components/ShoppingCart'
 import ShoppingCartIndicator from './components/ShoppingCartIndicator'
 import Footer from './components/Footer'
@@ -16,11 +16,18 @@ import localStorageCart from './utils/shoppingCart'
 
 
 import { loadStripe } from '@stripe/stripe-js';
+
+import dotenv from 'dotenv'
+dotenv.config()
+
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_RMqvxnEUv0TbhaRCpLNpNzeF00G9e3C2JE');
 
-const BACKEND_URL = 'http://pixels.rpghelpers.com:4242'
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://pixels.rpghelpers.com:4242'
+
+console.log(process.env)
+console.log(`BACKEND_URL is ${BACKEND_URL}`)
 
 
 /*
@@ -52,31 +59,36 @@ function App() {
   const [ fetchedPixels, setFetchedPixels ] = useState(null)
   const [ activePixel, setActivePixel ] = useState(null)
   const [ pixelSize, setPixelSize ] = useState(5)
-  const [ quickCheckout, setQuickCheckout ] = useState(null) // if this contains pixel data then quick checkout is active
+  // const [ quickCheckout, setQuickCheckout ] = useState(null) // if this contains pixel data then quick checkout is active
   const [ cartContents, setCartContents ] = useState(new Set(localStorageCart.get())) // 
 
   console.log('render')
   // console.log('pixels', pixels)
   // console.log('fetchedPixels', fetchedPixels)
 
-  const useEventSource = (url) => {
-    const [eventData, updateEventData] = useState(null);
+  //const useEventSource = (url) => {
+  const [eventData, updateEventData] = useState(null);
 
+  /*
     useEffect(() => {
-        const source = new EventSource(url);
-
-        source.onmessage = function logEvents(event) {      
-            updateEventData(JSON.parse(event.data));     
-        }
     }, [])
 
     return eventData;
-  }
+  }*/
 
-  const eventData = useEventSource(`${BACKEND_URL}/events`);
+  //const eventData = useEventSource(`${BACKEND_URL}/events`);
 
   useEffect(() => {
     console.log('running effect')
+
+    const source = new EventSource(`${BACKEND_URL}/events`);
+
+    source.onmessage = function logEvents(event) {     
+        console.log('got event data:', event.data) 
+        const parsedEventData = JSON.parse(event.data);
+        updateEventData(parsedEventData);
+    }
+
     // Load pixel data from backend
     axios
       .get(`${BACKEND_URL}/pixels`)
@@ -89,6 +101,8 @@ function App() {
       })
   }, []
   )
+
+  console.log('event data is', eventData)
 
   if (pixels.length === 0 && fetchedPixels !== null) { pixels = fetchedPixels }
 
@@ -153,9 +167,11 @@ function App() {
           header="TESTING MODE"
           text="Use card number 4242 4242 4242 4242 for purchases"
           />
-        { eventData 
+        { /* eventData 
           ? <div>{ eventData }</div>
-          : <div />}
+          : <div />
+          */
+          }
 
         { /*
         <SizeAdjuster
