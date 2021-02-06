@@ -25,34 +25,8 @@ dotenv.config()
 const stripePromise = loadStripe('pk_test_RMqvxnEUv0TbhaRCpLNpNzeF00G9e3C2JE');
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://pixels.rpghelpers.com:4242'
-
-console.log(process.env)
 console.log(`BACKEND_URL is ${BACKEND_URL}`)
 
-
-/*
-const emptyPixel = {
-  color: '#FFFFFF',
-  owner: 'not claimed',
-  note: '',
-  amount: 0.45,
-}
-
-let pixels = [];
-
-for (let row = 0; row < 100; row++) {
-  pixels.push([]);
-
-  for (let column = 0; column < 100; column++) {
-    pixels[row].push({
-      ...emptyPixel,
-      x: column,
-      y: row,
-      color: `#${ (row * column).toString(16)}`,
-    })
-  }
-}
-*/
 let pixels = []
 
 function App() {
@@ -61,22 +35,11 @@ function App() {
   const [ pixelSize, setPixelSize ] = useState(5)
   // const [ quickCheckout, setQuickCheckout ] = useState(null) // if this contains pixel data then quick checkout is active
   const [ cartContents, setCartContents ] = useState(new Set(localStorageCart.get())) // 
+  const [eventData, updateEventData] = useState(null);
 
   console.log('render')
   // console.log('pixels', pixels)
   // console.log('fetchedPixels', fetchedPixels)
-
-  //const useEventSource = (url) => {
-  const [eventData, updateEventData] = useState(null);
-
-  /*
-    useEffect(() => {
-    }, [])
-
-    return eventData;
-  }*/
-
-  //const eventData = useEventSource(`${BACKEND_URL}/events`);
 
   useEffect(() => {
     console.log('running effect')
@@ -86,6 +49,10 @@ function App() {
     source.onmessage = function logEvents(event) {     
         console.log('got event data:', event.data) 
         const parsedEventData = JSON.parse(event.data);
+        parsedEventData.forEach(pixel => {
+          pixels[pixel.y][pixel.x] = pixel
+        }
+        )
         updateEventData(parsedEventData);
     }
 
