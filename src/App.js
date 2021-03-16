@@ -17,16 +17,11 @@ import localStorageCart from './utils/shoppingCart'
 
 import { loadStripe } from '@stripe/stripe-js';
 
-import dotenv from 'dotenv'
-dotenv.config()
-
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_RMqvxnEUv0TbhaRCpLNpNzeF00G9e3C2JE');
 
-const BACKEND_URL = (process.env.NODE_ENV === 'production')
-                      ? 'http://pixels.rpghelpers.com:4242'
-                      : process.env.REACT_APP_BACKEND_URL || 'http://pixels.rpghelpers.com:4242'
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
 console.log(`BACKEND_URL is ${BACKEND_URL}`)
 
 let pixels = []
